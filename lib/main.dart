@@ -18,12 +18,16 @@ class _MyAppState extends State<MyApp> {
     'Kelvin',
     'Reamor',
     'Farenheit',
+    'Semua'
   ];
   double celcius = 0;
   double kelvin = 0;
   double reamor = 0;
   double farenheit = 0;
   double output = 0;
+  double output1 = 0;
+  double output2 = 0;
+  double output3 = 0;
 
 
   TextEditingController inputSuhu = TextEditingController();
@@ -41,11 +45,18 @@ class _MyAppState extends State<MyApp> {
         reamor = output;
         farenheit = 0;
         kelvin = 0;
-      }else{
+      }else if(dropdownvalue == 'Farenheit'){
         output = (9/5 *celcius) + 32;
         reamor = 0;
         farenheit = output;
         kelvin = 0;
+      }else{
+        output1 = 273.15 + celcius;
+        output2 = 4 / 5 * celcius;
+        output3 = (9/5 *celcius) + 32;
+        reamor = output2;
+        farenheit = output3;
+        kelvin = output1;
       }
     });
   }
@@ -72,25 +83,22 @@ class _MyAppState extends State<MyApp> {
                 Container(
                   margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child : 
-                    Expanded(
-                      child : 
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children : [ 
-                            Container(
-                              child : inputan()
-                            ),
-                            Container(
-                              child : dropDown(),
-                            ),
-                            Container(
-                              child : outputSuhu(),
-                            ),
-                            Container(
-                              child : buttonSubmit(),
-                            ),
-                          ],
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children : [ 
+                        Container(
+                          child : inputan()
                         ),
+                        Container(
+                          child : dropDown(),
+                        ),
+                        Container(
+                          child : outputSuhu(),
+                        ),
+                        Container(
+                          child : buttonSubmit(),
+                        ),
+                      ],
                     ),
                 ),
             ),
@@ -134,27 +142,20 @@ class _MyAppState extends State<MyApp> {
 
   dropDown(){
     return DropdownButton(
-              // Initial Value
-              value: dropdownvalue,
-               
-              // Down Arrow Icon
-              icon: const Icon(Icons.keyboard_arrow_down),   
-               
-              // Array list of items
-              items: items.map((String items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-              }).toList(),
-              // After selecting the desired option,it will
-              // change button value to selected value
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownvalue = newValue!;
-                });
-              },
-            );
+      value: dropdownvalue,
+      icon: const Icon(Icons.keyboard_arrow_down),   
+      items: items.map((String items) {
+        return DropdownMenuItem(
+          value: items,
+          child: Text(items),
+        );
+      }).toList(),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownvalue = newValue!;
+        });
+      },
+    );
   }
 
   outputSuhu(){

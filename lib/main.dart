@@ -5,21 +5,23 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
-
-      
 }
 
 class _MyAppState extends State<MyApp> {
-  String dropdownvalue = 'Kelvin';  
-  String? selectedValue;
+ 
   var items = [   
     'Kelvin',
     'Reamor',
     'Farenheit',
     'Semua'
   ];
+
+  String dropdownvalue = 'Kelvin';  
+  String? selectedValue;
   double celcius = 0;
   double kelvin = 0;
   double reamor = 0;
@@ -28,8 +30,10 @@ class _MyAppState extends State<MyApp> {
   double output1 = 0;
   double output2 = 0;
   double output3 = 0;
-
-
+  List<String> listViewItem1 = <String>[];
+  List<String> listViewItem2 = <String>[];
+  List<String> listViewItem3 = <String>[];
+  List<String> listViewItem4 = <String>[];
   TextEditingController inputSuhu = TextEditingController();
 
   konversi() {
@@ -58,7 +62,12 @@ class _MyAppState extends State<MyApp> {
         farenheit = output3;
         kelvin = output1;
       }
-    });
+      listViewItem1.add('$reamor');
+      listViewItem2.add('$kelvin');
+      listViewItem3.add('$farenheit');
+      listViewItem4.add('$celcius');
+    }
+    );
   }
 
   @override
@@ -102,28 +111,20 @@ class _MyAppState extends State<MyApp> {
                     ),
                 ),
             ),
-            const Expanded(
-              flex: 0,
-              child: Text('Riwayat Konversi'),
-            ),
-            Expanded(
-              flex: 2,
-              child: 
-                ListView(
-                  children: [
-                    // outputSuhu(),
-                    // outputSuhu(),
-                    // outputSuhu(),
-                    // outputSuhu(),
-                    // outputSuhu(),
-                    // outputSuhu(),
-                    // outputSuhu(),
-                    // outputSuhu(),
-                  ],
-                ),
-            )
+              const Expanded(
+                flex: 0,
+                child: Text('Riwayat Konversi',
+                style: TextStyle(
+                  fontSize: 20
+                ),),
+              ),
+              const SizedBox(height: 15,),
+              Expanded(
+                flex: 2,
+                child: 
+                  listHasil(),
+              ),
             ],
-            
           ),
       ),
     );
@@ -154,6 +155,7 @@ class _MyAppState extends State<MyApp> {
         setState(() {
           dropdownvalue = newValue!;
         });
+        
       },
     );
   }
@@ -166,7 +168,7 @@ class _MyAppState extends State<MyApp> {
           flex: 1,
           child: Column(            
             children: [
-              const Text('Suhu dalam Reamor', style: TextStyle(
+              const Text('Suhu dalam Reamur', style: TextStyle(
                 fontSize: 15,
               ),
               textAlign: TextAlign.center),
@@ -196,7 +198,7 @@ class _MyAppState extends State<MyApp> {
           flex: 1,
           child: Column(
             children: [
-              const Text('Suhu dalam \nFarenheit', style: TextStyle(
+              const Text('Suhu dalam \nFahrenheit', style: TextStyle(
                 fontSize: 15
               ),
               textAlign: TextAlign.center),
@@ -220,5 +222,73 @@ class _MyAppState extends State<MyApp> {
         onPressed: () => konversi(),
       )
     );
+  }
+
+  listHasil(){
+  return SizedBox( 
+  height: 120,
+  child: ListView.builder(
+    shrinkWrap: true,
+    itemCount: listViewItem4.length,
+    itemBuilder: (context, index) => 
+    Container(
+       decoration: BoxDecoration(
+        border: Border.all(color: Colors.lightBlueAccent)
+      ),
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 4,
+            child: Column(
+              children: [
+                Text((index+1).toString())
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 10,
+            child: Row(
+              children: [Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('Celcius',
+                style: 
+                TextStyle(
+                  fontWeight: FontWeight.bold,
+                  height: 2
+                ),),
+                Text('Reamur\t',),
+                Text('Kelvin\t'),
+                Text('Fahrenheit\t'),
+                SizedBox(height: 10,
+                )
+              ],
+              ),
+              Column(
+                children: const [
+                  Text('=\t'),
+                  Text('=\t'),
+                  Text('=\t'),
+                  Text('=\t'),
+                ]
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(listViewItem4.elementAt(index)),
+                  Text(listViewItem1.elementAt(index)),
+                  Text(listViewItem2.elementAt(index)),
+                  Text(listViewItem3.elementAt(index)),
+                  ]
+                ),
+              ],
+            ),
+          ),
+        ]
+      ),
+    ),
+  ),
+  );
   }
 }

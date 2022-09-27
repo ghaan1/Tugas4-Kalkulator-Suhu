@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Muhammad Ghani',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
           Scaffold(
             resizeToAvoidBottomInset: false,
               appBar: AppBar(
-                title: const Text('Kalkulator'),
+                title: const Text('Konversi Suhu'),
               ),
         body: 
           Column(
@@ -237,7 +237,7 @@ class _MyAppState extends State<MyApp> {
       ),
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
       child: Row(
-        children: [
+        children: <Widget>[
           Expanded(
             flex: 4,
             child: Column(
@@ -248,8 +248,10 @@ class _MyAppState extends State<MyApp> {
           ),
           Expanded(
             flex: 10,
-            child: Row(
-              children: [Column(
+            child: 
+            Row(
+              children: [
+                Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text('Celcius',

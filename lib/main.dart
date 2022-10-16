@@ -17,7 +17,6 @@ class _MyAppState extends State<MyApp> {
     'Kelvin',
     'Reamor',
     'Farenheit',
-    'Semua'
   ];
 
   String dropdownvalue = 'Kelvin';  
@@ -27,13 +26,9 @@ class _MyAppState extends State<MyApp> {
   double reamor = 0;
   double farenheit = 0;
   double output = 0;
-  double output1 = 0;
-  double output2 = 0;
-  double output3 = 0;
+  String valueList = '';
   List<String> listViewItem1 = <String>[];
-  List<String> listViewItem2 = <String>[];
-  List<String> listViewItem3 = <String>[];
-  List<String> listViewItem4 = <String>[];
+  List<String> valueDropDown = <String>[];
   TextEditingController inputSuhu = TextEditingController();
 
   konversi() {
@@ -44,28 +39,22 @@ class _MyAppState extends State<MyApp> {
         reamor = 0;
         farenheit = 0;
         kelvin = output;
+        valueList = dropdownvalue;
       }else if(dropdownvalue == 'Reamor'){
         output = 4 / 5 * celcius;
-        reamor = output;
         farenheit = 0;
         kelvin = 0;
-      }else if(dropdownvalue == 'Farenheit'){
+        reamor = output;
+        valueList = dropdownvalue;
+      }else{
         output = (9/5 *celcius) + 32;
         reamor = 0;
-        farenheit = output;
         kelvin = 0;
-      }else{
-        output1 = 273.15 + celcius;
-        output2 = 4 / 5 * celcius;
-        output3 = (9/5 *celcius) + 32;
-        reamor = output2;
-        farenheit = output3;
-        kelvin = output1;
+        farenheit = output;
+        valueList = dropdownvalue;
       }
-      listViewItem1.add('$reamor');
-      listViewItem2.add('$kelvin');
-      listViewItem3.add('$farenheit');
-      listViewItem4.add('$celcius');
+      listViewItem1.add('$output');
+      valueDropDown.add(valueList);
     }
     );
   }
@@ -110,15 +99,19 @@ class _MyAppState extends State<MyApp> {
                       ],
                     ),
                 ),
-            ),
+              ),
               const Expanded(
                 flex: 0,
                 child: Text('Riwayat Konversi',
-                style: TextStyle(
-                  fontSize: 20
-                ),),
+                style: 
+                  TextStyle(
+                    fontSize: 20
+                  ),
+                ),
               ),
-              const SizedBox(height: 15,),
+              const SizedBox(
+                      height: 15,
+                    ),
               Expanded(
                 flex: 2,
                 child: 
@@ -126,7 +119,7 @@ class _MyAppState extends State<MyApp> {
               ),
             ],
           ),
-      ),
+        ),
     );
   }
 
@@ -154,8 +147,7 @@ class _MyAppState extends State<MyApp> {
       onChanged: (String? newValue) {
         setState(() {
           dropdownvalue = newValue!;
-        });
-        
+        });  
       },
     );
   }
@@ -229,14 +221,15 @@ class _MyAppState extends State<MyApp> {
   height: 120,
   child: ListView.builder(
     shrinkWrap: true,
-    itemCount: listViewItem4.length,
+    itemCount: listViewItem1.length,
     itemBuilder: (context, index) => 
     Container(
        decoration: BoxDecoration(
         border: Border.all(color: Colors.lightBlueAccent)
       ),
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-      child: Row(
+      child: 
+      Row(
         children: <Widget>[
           Expanded(
             flex: 4,
@@ -250,39 +243,22 @@ class _MyAppState extends State<MyApp> {
             flex: 10,
             child: 
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('Celcius',
-                style: 
-                TextStyle(
-                  fontWeight: FontWeight.bold,
-                  height: 2
-                ),),
-                Text('Reamur\t',),
-                Text('Kelvin\t'),
-                Text('Fahrenheit\t'),
-                SizedBox(height: 10,
-                )
-              ],
+              Expanded(
+              flex: 2,
+              child:  
+                Text(valueDropDown.elementAt(index)),
               ),
-              Column(
-                children: const [
-                  Text('=\t'),
-                  Text('=\t'),
-                  Text('=\t'),
-                  Text('=\t'),
-                ]
+              const Expanded(
+                flex: 1,
+                child : 
+                  Text('='),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(listViewItem4.elementAt(index)),
-                  Text(listViewItem1.elementAt(index)),
-                  Text(listViewItem2.elementAt(index)),
-                  Text(listViewItem3.elementAt(index)),
-                  ]
+              Expanded(
+                flex: 2,
+                child : 
+                  Text(listViewItem1.elementAt(index))
                 ),
               ],
             ),
